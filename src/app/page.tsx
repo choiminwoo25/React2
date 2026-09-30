@@ -1,7 +1,7 @@
-export default function BlogPage() {
+export default function Home() {
   return(
     <div>
-      Blog페이지
+      Root 페이지
     </div>
   );
 }

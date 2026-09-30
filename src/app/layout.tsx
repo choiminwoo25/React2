@@ -1,16 +1,17 @@
-import { Children } from "react";
-
-export default function RootLayout({
-  children,
-} : {
-  children: React.ReactNode;
-}) {
-  return(
-    <html lang="en">
+import Link from 'next/link'
+ 
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
       <body>
-        <header>Root Layout Heaer</header>
+        <nav>
+          {/* Prefetched when the link is hovered or enters the viewport */}
+          <Link href="/blog">Blog</Link>|
+          <Link href="/blog2">Blog2</Link>|
+          {/* No prefetching */}
+          <a href="/contact">Contact</a>
+        </nav>
         {children}
-        <footer>Root Layout Footer</footer>
       </body>
     </html>
   )
