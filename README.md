@@ -1,4 +1,43 @@
 # 202130436 최민우
+6주차
+
+동적 세그먼트 없는 generateStaticParams
+- generateStaticparam() 자체는 slug 배열만 반환한다.
+- Next.js 빌드 프로세스가 이 배열을 순회하며 => 각 slug에 대해 page.tsx 실행 -> 정적 HTML 생성
+- map함수는 HTML을 작성해야 할 리스트를 next.js에게 전달하는 역할을 한다.
+
+#### await이 없어도 async를 붙여 두는 이유
+- Nextjs13+dml APP Router에서 Page.tsx 같은 Server Componenet는 비동기 렌더링을 전제로 하고 있다.
+- 즉 page.tsx 안에서 데이터를 fetch하는 경우가 많기 때문에 async를 기본으로 붙여도 문제가 없다.
+1. 일관성 유지 : 같은 프로젝트 안에서 어떤 페이지는 async , 어떤 페이지는 일반 function이면 혼란스러울수 있다
+2. 확장성 : 지금은 더미 데이터(postsfind(...))를 쓰지만, 나중에 DB나 API에서 데이터를 가져올 때 awaitfetch(...) 같은 코드가
+ 들어갈 수 있기 때문에 미리 async를 붙여 두면 수정할 필요가 없다
+3. React Server Component 호환성 : Server Component는 Promise를 반환할 수 있어야 하고, Next.js는 내부적으로
+ async 함수 패턴에 맞춰 최적화된 렌더링 파이브라인을 갖고 있어서 async가 붙어 있어도 불필요한 오버헤드가 거의 없다.
+
+ #### generatestaticParams 가 없는 경우와 있는 경우 비교
+ - generateStaticParams가 없는 경우 Next.js는 slug값을 빌드 타임에는 모르는 상태이다
+    - 따라서 slug 페이지에 접속하면 nextjs가 서버에서 요청할 때마다 해당 페이지를 동적으로 렌더링하며ㅡ
+    빌드의 결과물로 HTML 파일은 생성되지 않는다
+
+- generateStaticParams가 있는 경우 Next.js에 빌드 타임에 생성할 slug목록을 알려줄수 있다
+    - 이 경우에는 지정한 slug에 대해서는 정적HTML +JSON이 빌드 타임에 생성되어, 
+    최조 접근시 SSR이 필요 없이 미리 만들어진 페이지 제공한다.
+
+#### 느린 네트워크
+- 네트워크가 느리거나 불안정한 경우, 사용자가 링크를 클릭하기 전에 프리페칭이 완료되지 않을 수 있다.
+- 이것은 정적 경로와 동적 경로 모두에 영향을 미칠 수 있다.
+- 이 경우 loading.tsx 파일이 아직 프리페칭되지 않았기 때문에 즉시 표시되지 않을 수 있다,.
+- 체감 성능을 개선하기 위해 useLinkStatus Hook을 사용하여 전환이 진행되는 동안 사용자에게
+    인라인 시각적 피드백을 표시할 수 있따.
+
+#### Hydration이란 무엇인가
+- Hydration이란 서버에서 생성된 HTML에 javascript 로직을 추가하여 동적으로 상호작용이 가능하도록 만드는 과정을 의미
+- SSR
+
+
+#### SERVER 및 COMPONENT 사용
+---
 5주차
 
 - App Router 기능
