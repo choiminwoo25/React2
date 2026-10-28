@@ -1,19 +1,28 @@
-import Link from 'next/link'
- 
+import Link from "next/link";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
-        <nav>
-          {/* Prefetched when the link is hovered or enters the viewport */}
-          <Link href="/blog">Blog</Link>|
-          <Link href="/blog2">Blog2</Link>|
-          <Link href="/blog3">Blog3</Link>|
-          {/* No prefetching */}
-          <a href="/contact">Contact</a>
-        </nav>
-        {children}
+        <header>
+          <p>ROOT layout header</p>
+          <nav>
+            <Link href="/">Home</Link> | <Link href="/counter">Counter</Link>
+            <br />
+            <br />
+            Slug page Menu: &nbsp;
+            <Link href="/next.js">nextjs</Link>&nbsp;|&nbsp;
+            <Link href="/routing">routing</Link>&nbsp;|&nbsp;
+            <Link href="/ssr-ssg">ssr-ssg</Link>&nbsp;|&nbsp;
+            <Link href="/dynamic-routes">dynamic-routes</Link>&nbsp;|&nbsp;
+            <br />
+          </nav>
+          <br />
+          <br />
+        </header>
+        <main>{children}</main>
+        <footer>===Root Layout Footer ===</footer>
       </body>
     </html>
-  )
+  );
 }

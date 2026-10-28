@@ -1,5 +1,17 @@
 # 202130436 최민우
+9주차
 
+실습
+
+### JS bundle 크기 줄이기
+- client javascript 번들의 크기를 줄이려면 UI의 큰 부분을 client component로 표시하는 대신 특정 대화형 component에 "use client"를 추가한다.
+
+- 예를 들어, 다음 에제의 <Layout> component는 로고와 탐색 링크와 같은 정적 요소가 대부분이지만 대화형 검색창이 포함되어 있습니다.
+
+- <Search/> 는 대화형이기 떄문에 client component가 되야 하지만, 나머지 layout은 server component로 유지될 수 있습니다.
+ 나머지 layout은 server compoenet로 유지해야한다!
+
+---
 7주차
 
 ### SERVER 및 client component 작동방식 및 사용시기
