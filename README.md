@@ -1,4 +1,48 @@
 # 202130436 최민우
+
+
+---
+11주차
+
+### Context 생성 코드 설명 - client 컴포넌트
+
+- context를 사용하면 props를 사용하지 않고도 전역적으로 사용할 theme, 언어 설정, 로그인 정보 등을 하위 컴포넌트에 전달할 수 있습니다.
+
+- createContext()는 React 컴포넌트 트리 전체에 값을 공유할 수 있도록 하는 역할을 한다.
+
+- createContext(...)로 Context 객체를 생성하여, Theme state를 공유 한다.
+
+- 이 파일 내부에서 ThemeProvider 컴포넌트를 정의한다.
+ 
+
+ - 하위트리 렌더링
+  - Provider로 감싼 children 이 렌더링됨. 이 하위 트리는 context
+
+- 부수효과 
+ - theme 변경으로 ThemeProvider의 useEffect가 실행되어 document.documentElement.dateset.theme = theme 로 설정,
+
+- 리렌더링 전ㅍ
+ - state 변경으로 Provider와 그 하위 Comsumer들이 최신 value를 받아 리렌더링됨.
+ - ThemeStatus는 새 theme 값을 받아 UI를 갱신함
+
+
+ 
+
+### TypeScript의 유니온 타입이란?
+- |(파이프) 로 여러 타입을 연결해서 "이 값은 각각의 타입 중 하나가 될 수 있다" 는 것을 지정한다.
+- 코드에서 문자열 리터럴 유니온 타입의 경우 state 값으로 'light' 또는 'dark' 만 설정할 수 있어 코드 자동완성과 타입 안정성이 향상 된다
+
+
+### 외부 component
+- client 전용 기능에 의존하는 외부 component를 사용하는 경우, 해당 component를 client component에 래핑하여 예상대로 작동하는지 확인할 수 있다,
+ 
+
+
+
+
+
+
+---
 10주차
 
 ### server에서 client component로 데이터를 전달

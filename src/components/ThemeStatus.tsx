@@ -8,7 +8,7 @@ export default function ThemeStatus() {
   return (
     <div style={{ display: "inline-block", marginLeft: 12 }}>
       <button onClick={toggleTheme} aria-label="toggle theme">
-        Theme:{theme === "dark" ? "Dark" : "light"}
+        Theme:{theme === "dark" ? "●Dark" : "○light"}
       </button>
     </div>
   );
