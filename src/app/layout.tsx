@@ -20,6 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Link href="/routing">routing</Link>&nbsp;|&nbsp;
               <Link href="/ssr-ssg">ssr-ssg</Link>&nbsp;|&nbsp;
               <Link href="/dynamic-routes">dynamic-routes</Link>&nbsp;|&nbsp;
+              <Link href="/carousel">carousel</Link>
               <br />
             </nav>
             <ThemeStatus />

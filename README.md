@@ -1,4 +1,51 @@
 # 202130436 최민우
+---
+12주차
+
+코드 실습
+
+### 라이브러리 작성자를 위한 조언
+- component 라이브러리르 ㄹ빌드하는 경우 client 전용 기능에 의존하는 진인점에 'use client' 지시문을 추가한다
+- 이렇게 하면 사용자가 래퍼를 만들 필요 없이 component 를 server component로 가져올 수 있다.
+
+- 일부 번들러는 'use client' 지시어를 제거할수 있습니다
+
+- React Wrap Balancer 및 Vercel Analyizs저장소에서 use client 지시어를 포함하도록 esbuild를 구성하는 방법의 예를 확인할 수 있다
+
+
+### 환경변수 노출 예방
+- javaxcript 모듈은 sever 및 client componenet 모듈 간에 공유될 수 있다
+- 이 말의 의미는 실수로 server전용 코드를 client로 가져올 수도 있다.
+
+- Next.js는 server-only 및 client-only 모듈 import를 내부적으로 처리하여, 모듈이 잘못된 환경에ㅓ 사용될 경우 더 명확한 오류 메세지를 제공합니다.
+
+### Fetching Data
+
+- 서버 컴포넌트
+ - 서버컴포넌트에서 데이터를 fetch하는 방법은 두가지 있다
+  1. fetch API
+  2. ORM 또는 데이터베이스
+
+1. fetch API 사용
+ - 데이터를 가져오려면 fetch API를 사용하여 컴포넌트를 비동기식 함수로 변화나고 다음 fetch의 호출을 기다린다.
+
+- 알아두면 좋은 정보
+ - fetch 응답은 기본적으로 캐싱되지 않는다
+ - 그러나 Next.js는 라우팅 페이지를 미리 렌더링하고, 성능 향상을 위해 출력은 캐싱된다.
+ - 동적 렌더링을 사용하려면 {chche: 'no-store'} 옵션을 사용한다.
+ - 개발중에는 가시성과 디버깅을 개선하기 위해 fetch 호출을 기록할 수 있다
+
+ - 클라이언트 컴포넌트
+  - 클라이언트 컴포넌트에서 데이터를 fetch하는 방법은 두가지가 있습니다.
+   1. React의 use Hook
+   2. SMR 또는 React 쿼리와 같은 통신 라이브러리
+  
+  1. use Hook을 사용한 스트리밍 데이터
+   - React의 use Hook을 사용하여 서버에서 클라이언트로 데이터를 스트리밍한다.
+   - 서버 컴포넌트에서 데이터를 먼저 fetch하고, 그결과(promise)를 클라이언트 컴포넌트에 prop으로 전달한다.
+  - 서버 컴포넌트는 async가 가능하기 때문에 await fetch()도 사용 가능하다.
+  - 하지만 클라이언트 컴포넌트에서는 async가 불가능하기 때문에 직접 fetch가 불가능 합니다 (렌더링 중 fetdch 금지)
+  - 이런 이유 때문에 서버에서 fetch한 결과를 prop으로 넘기고 클라이언트에서는 use(promise)를 써서 데이터를 가져온다.
 
 
 ---
