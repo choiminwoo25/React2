@@ -1,4 +1,81 @@
 # 202130436 최민우
+13주차
+
+### Fetch의 이해
+
+- fetch(url)
+ - fetch()함수는 브라우저의 Fetch API로 HTTP 요청을 보낼 떄 사용된다.
+ - 기본적으로 GET 방식으로 요청을 수행한다.
+ - 첫 번쨰 인자로 요청(request)할 URL 두 번쨰 인자로 요청 옵션을 전달한다.
+ - 옵션은 method, headers, body 등이 있다.
+ - Promise<Response> 객체를 반환한다.
+ - 응답이 동작하면 then()을 통해 결과를 처리한다.
+ - 성공적으로 응답이 도착하면 resolve()함수가 호출 된다
+ - Promise는 네트워크 요청이 완료되면 resolve(성공)됩니다.
+
+- HTTP 상태 코드가 4xx/5xx 이어도 Promise는 Reject(오류)되지 않는다.
+- 네트워크 에러(통신 오류)가 아니라면 무조건 resolve가 된다.
+- 따라서 404,500 등의 오류를 처리하려면 예외처리가 별도로 필요하다.
+
+1. Promise의 기본 구조
+ - new Promise()를 호출하면 Promise 객체가 생성된다
+ - 생성자의 인자로 callback 함수가 들어가는데, 이 callback은 두 개의 매개변수를 받는다.
+  - resolve : 작업이 성공했을 때 호출하는 함수
+  - reject : 작업이 실패했을 때 호출하는 함수
+
+
+
+2. 자주 혼당하는 부분
+ - resolve는 Promise 안에서 자동으로 전달되는 함수이다
+ - 직접 정의하는게 아니라 new Promise 내부 callback의 첫 번쨰 매개변수로 주어진다
+
+3. 이미 존재하는 Promise를 resolve 하는 경우
+ - 경우에 따라서 새 Promise를 만들지 않고, 이미 존재하는 값을 "즉시 이행된 promise"감싸고 싶을때 이련경우 Promise.resolve()를 사용한다.
+  - 이것은 new Promise((resolve) =>resolve("이미 완료된 값"))와 같은 의미
+
+- .then((res)=>...)
+ - fetch()가 반환한 Promise 객체가 .then() 메서드를 가지고 있다.
+ - Promise 객체가 resolve(성공)되면 .then()의 callback 함수가 실행된다
+ - 여기서 res는 서버에서 반환된 Promise 객체이다
+ - Promise 객체는 status, header, body, 등 HTTP 응답 전체를 포함한다.
+ - res.Ok는 상태 코드가 200~299인지 불리언(Boolean)으로 알려준다
+ - res.status는 숫자로 알려준다 (예 : 200, 404)
+ - fetch와 마찬가지로 예외처리는 별도로 해야 한다.
+
+- res.json() 
+ - res.json()은 이 Response 객체의 본문을 JSON으로 파싱하는 비동기 함수이다
+ - 내부적으로 문자열 형태의 Response body를 읽고, JSON.parse()를 수행하여 자바스크립트객체로 변환한다,
+ - 이 함수도 Promise를 반환하기 때문에 다시 then() 체이닝을 통해 파싱된 데이터를 사용할 수 있다,
+ - 파싱이 완료되면 resolve되고 파싱에 실패하면 reject된다.
+ - Response body는 한번만 읽을 수 있다.
+
+
+### Suspense Component란 무엇인가
+- 비동기 작업 중에 UI의 일부를 일시적으로 대체UI(fallback)로 보여주어 사용자 경험을 향상시키는 React 기능이다(예: 데이터 로딩, 컴포넌트 동적 임포트)
+
+- [Suspense의 핵심기능]
+- 비동기 작업이 완료될 때까지 해당 컴포넌트 트리 렌더링을 일시 중지한다
+- 작업이 완료되면  실제 UI 로 자동 전환한다
+- 비동기 로딩 중 보여 줄 fallback UI(로딩 인디케이터 등)를 지정할 수 있다.
+- import하여 사용한다. import {Suspense } from 'react'
+
+### Promise<...> 란 무엇인가
+- Next.js 15.1부터 주요 내부 API들이 비동기(Promise 기반) 구조로 변경 되었다.
+- 내부 API(예:params,searchParamsm,headers,cookies)가 즉시 사용 가능한 값이 아니라 비동기적으로 처리되며 Promise를 반환하게 된다.
+- 즉 Promise<...>는 비동기 연산의 결과를 나타내는 객체 타입으로, 연산이 즉시 완료되지 않고, 미래의 어느 시점에서 결과가 결정될 때 이름 표현한다는 의미이다,.
+- Promise<{id:string}>는 미래에 {id:string} 객체를 반환하겠다느 ㄴ약속이다
+- 즉 서버 컴포넌트로부터 Promise<{id:string}>객체를 받았다며느 클라이언트 컴포넌트에 서는 use Hook을 사용해서 개별 데이터에 접근한다
+
+
+### 서버 컴포넌트에서 getPosts()함수를 사용 하려면
+
+1. blog에 접속하면 getPosts 라이브러리를 호출하여 fetch 정보를전달한다
+2. getPosts는 받은 정보를 이용하여 fetch 데이터를 가져온 후 json형태로 blog에 return한다.
+3. blog는 getPosts로부터 받은 데이터를 Posts 컴포넌트에 props로 전달한다,
+
+
+
+
 ---
 12주차
 
